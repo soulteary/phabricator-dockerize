@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+
+  mariadb:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=phabricator
+      - MYSQL_DATABASE=phabricator
+    command: --max_allowed_packet=33554432 --sql_mode="STRICT_ALL_TABLES" --local-infile=0
+    ports:
+      - 13306:3306
+    networks:
+      - traefik
+    healthcheck:
+      test: "mysqladmin --password=phabricator ping -h 127.0.0.1"
+      timeout: 5s
+      retries: 20
+    volumes:
+      - './mariadb_data:/var/lib/mysql'
+
+networks:
+  traefik:
+    external: true

@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  phabricator:
+    image: soulteary/phabricator:stable-2020-week-5
+    expose:
+      - 80
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.phab0.middlewares=https-redirect@file"
+      - "traefik.http.routers.phab0.entrypoints=http"
+      - "traefik.http.routers.phab0.rule=Host(`phabricator.lab.io`,`phabricator-file.lab.io`)"
+      - "traefik.http.routers.phab1.middlewares=content-compress@file"
+      - "traefik.http.routers.phab1.entrypoints=https"
+      - "traefik.http.routers.phab1.tls=true"
+      - "traefik.http.routers.phab1.rule=Host(`phabricator.lab.io`,`phabricator-file.lab.io`)"
+      - "traefik.http.services.phabbackend.loadbalancer.server.scheme=http"
+      - "traefik.http.services.phabbackend.loadbalancer.server.port=80"
+    volumes:
+      - ./phabricator_data/stor:/data/stor
+      - ./phabricator_data/repo:/data/repo
+      - ./extensions:/opt/phabricator/src/extensions
+      - ./phabricator/docker-assets/phabricator.conf:/etc/apache2/sites-available/000-default.conf:ro
+      - ./phabricator/docker-assets/local.json:/opt/phabricator/conf/local/local.json:ro
+
+networks:
+  traefik:
+    external: true

@@ -1,0 +1,3 @@
+*.swp
+mariadb_data
+phabricator_data
