@@ -1,0 +1,13 @@
+{
+  "phabricator.base-uri": "https://phabricator.lab.io/",
+  "security.alternate-file-domain":"https://phabricator-file.lab.io/",
+  "pygments.enabled": true,
+  "phabricator.timezone":"Asia/Shanghai",
+  "storage.local-disk.path":"/data/stor",
+  "repository.default-local-path": "/data/repo",
+  "phd.user": "daemon-user",
+  "mysql.pass": "phabricator",
+  "mysql.user": "root",
+  "mysql.port": "3306",
+  "mysql.host": "mariadb"
+}
