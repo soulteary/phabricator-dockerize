@@ -23,7 +23,6 @@ services:
     volumes:
       - ./phabricator_data/stor:/data/stor
       - ./phabricator_data/repo:/data/repo
-      - ./extensions:/opt/phabricator/src/extensions
       - ./phabricator/docker-assets/phabricator.conf:/etc/apache2/sites-available/000-default.conf:ro
       - ./phabricator/docker-assets/local.json:/opt/phabricator/conf/local/local.json:ro
 
