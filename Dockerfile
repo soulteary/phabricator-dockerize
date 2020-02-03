@@ -30,8 +30,8 @@ RUN git clone https://github.com/phacility/libphutil.git --branch=stable --depth
 
 RUN git clone https://github.com/arielyang/phabricator_zh_Hans.git --branch=master --depth=1 && \
     cd phabricator_zh_Hans && \
-    git checkout ba5e602d934a6efacdc09082cd3a762449de45cf && \
-    cp dist/\(stable\)\ Promote\ 2019\ Week\ 50/PhabricatorSimplifiedChineseTranslation.php ../phabricator/src/extensions/
+    git checkout 17ce992806cb3d08ec485776731e1e02cd4f9877 && \
+    cp dist/\(stable\)\ Promote\ 2020\ Week\ 5/PhabricatorSimplifiedChineseTranslation.php ../phabricator/src/extensions/
 
 COPY phabricator/docker-assets ./assets
 
@@ -40,7 +40,8 @@ RUN sed -i -e "s/post_max_size = 8M/post_max_size = 32M/g" /etc/php/7.2/apache2/
 
 RUN useradd daemon-user && \
     mkdir -p /data/repo && \
-    chown -R daemon-user:daemon-user /data/repo && \
+    mkdir -p /data/stor && \
+    chown -R daemon-user:daemon-user /data && \
     ln -s /usr/lib/git-core/git-http-backend /usr/bin/ && \
     echo "Cmnd_Alias GIT_CMDS = /usr/bin/git*" >> /etc/sudoers.d/www-user-git && \
     echo "www-data ALL=(daemon-user) SETENV: NOPASSWD: GIT_CMDS" >> /etc/sudoers.d/www-user-git && \
